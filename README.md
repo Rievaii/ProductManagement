@@ -9,6 +9,7 @@ JobApplication - ASP.NET API WEB Service
 
 **Сервис реализует такие HTTP запросы как:**<br /> <br />
 ***api/Products/...***<br />
+<br />
 -HTTP GET - получить список всех имеющихся товаров<br />
 <br />
 -HTTP GET/{id} - получить доступ к товару по ID<br />
@@ -16,6 +17,7 @@ JobApplication - ASP.NET API WEB Service
 -HTTP DELETE{id} - удалить товар из БД<br />
 <br />
 ***api/Orders/...***<br />
+<br />
 -HTTP POST {params} - создать заказ<br />
 <br />
 -HTTP DELETE {id} - удалить заказ 
