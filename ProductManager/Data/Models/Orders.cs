@@ -1,11 +1,12 @@
 ﻿using MessagePack;
 using Microsoft.Build.Framework;
 
-namespace ProductManager.Models
+
+namespace ProductManager.Data.Models
 {
     public class Orders
     {
-        [Key]
+
         public int Id { get; set; }
 
         [Required]
@@ -16,5 +17,7 @@ namespace ProductManager.Models
 
         [Required]
         public decimal Price { get; set; }
+
+        public ICollection<Products> Products { get; set; }
     }
 }

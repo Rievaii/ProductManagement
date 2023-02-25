@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProductManager.Models
+namespace ProductManager.Data.Models
 {
     public class Products
     {
@@ -17,7 +17,8 @@ namespace ProductManager.Models
         public decimal Price { get; set; }
 
         [Required]
-        public int Amount { get; set; }
+        public int? Amount { get; set; }
 
+        public ICollection<Orders> Orders { get; set; }
     }
 }

@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProductManager.Models;
+using ProductManager.Data;
+using ProductManager.Data.Models;
 
 namespace ProductManager.Controllers
 {
