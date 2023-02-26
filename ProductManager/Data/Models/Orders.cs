@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
 
 
@@ -8,16 +9,15 @@ namespace ProductManager.Data.Models
     {
 
         public int Id { get; set; }
+       
+        //get price and name from products
 
         [Required]
-        public string ProductName { get; set; }
+        public long CustomerId { get; set; }
 
         [Required]
         public int Amount { get; set; }
 
-        [Required]
-        public decimal Price { get; set; }
-
-        public ICollection<Products> Products { get; set; }
+        public Products product { get; set; }
     }
 }

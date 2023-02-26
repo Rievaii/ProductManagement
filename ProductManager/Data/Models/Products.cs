@@ -19,6 +19,9 @@ namespace ProductManager.Data.Models
         [Required]
         public int? Amount { get; set; }
 
-        public ICollection<Orders> Orders { get; set; }
+        public List<Orders> Orders { get; set; }
+
+
+
     }
 }

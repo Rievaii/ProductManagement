@@ -9,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 using (var client = new Context())
 {
+    var Order1 = new Orders()
+    {
+        CustomerId = 1233414,
+        Amount = 20,
+        
+    };
     //DB Values Demonstration Example
     var product1 = new Products()
     {
@@ -17,7 +23,7 @@ using (var client = new Context())
         Description = "ћ€тные",
         Amount = 1000,
 
-        Orders = new List<Orders>() { }
+        //Orders = new List<Orders>() { }
     };
 
     var product2 = new Products()
@@ -27,7 +33,7 @@ using (var client = new Context())
         Description = "—ладкие",
         Amount = 1000,
 
-        Orders = new List<Orders>() { }
+        //Orders = new List<Orders>() {Order1}
     };
 
     var product3 = new Products()
@@ -36,7 +42,7 @@ using (var client = new Context())
         Price = 20,
         Amount = 1000,
 
-        Orders = new List<Orders>() { }
+        //Orders = new List<Orders>() { }
     };
 
     var product4 = new Products()
@@ -46,7 +52,7 @@ using (var client = new Context())
         Description = "с начинкой",
         Amount = 2000,
 
-        Orders = new List<Orders>() { },
+        //Orders = new List<Orders>() { },
     };
 
     var product5 = new Products()
@@ -55,7 +61,7 @@ using (var client = new Context())
         Price = 24,
         Amount = 500,
 
-        Orders = new List<Orders>() { },
+        //Orders = new List<Orders>() { },
     };
 
     client.Products.Add(product1);

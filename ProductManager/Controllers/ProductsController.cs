@@ -10,7 +10,7 @@ using ProductManager.Data.Models;
 
 namespace ProductManager.Controllers
 {
-    [Route("api/")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -42,39 +42,7 @@ namespace ProductManager.Controllers
             return products;
         }
 
-        // PUT: api/Products/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
-        {
-            if (id != products.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(products).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Products
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Products>> PostProducts(Products products)
         {
@@ -93,7 +61,7 @@ namespace ProductManager.Controllers
             {
                 return NotFound();
             }
-
+            //delete заказ if product is deleted
             _context.Products.Remove(products);
             await _context.SaveChangesAsync();
 
@@ -105,6 +73,7 @@ namespace ProductManager.Controllers
             return _context.Products.Any(e => e.Id == id);
         }
 
-        //order has number and price 
+        //order has number and total price 
+        
     }
 }
