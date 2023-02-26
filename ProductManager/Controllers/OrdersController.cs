@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using ProductManager.Data;
 using ProductManager.Data.Models;
 
@@ -25,30 +19,33 @@ namespace ProductManager.Controllers
 
         // POST: api/Orders
         [HttpPost]
-        public async Task<ActionResult<Orders>> PostOrders(int _CustomerId, int _Amount, int _ProductId)
+        public async Task<ActionResult<Orders>> PostOrders(int _Amount, int ProductId, int _CustomerId)
         {
             //проверка на то, хватит ли продуктов в бд
-            var products = await _context.Products.FindAsync(_ProductId);
+            var products = await _context.Products.FindAsync(ProductId);
+            Console.WriteLine(products.Name);
+
             if (products == null)
             {
                 return NotFound();
             }
             else if (products.Amount < _Amount)
             {
-                return BadRequest("не хватает количества товаров");
+                return BadRequest("Не хватает количества товаров");
             }
-            else
-            {
-                var orders = _context.Orders.Add(new Orders()
-                {
-                    CustomerId = _CustomerId,
-                    Amount = _Amount,
-                    product = products
 
-                });
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("PostOrders", orders);
-            }
+            products.Amount -= _Amount;
+
+            var orders = _context.Orders.Add(new Orders
+            {
+                Amount = _Amount,
+                CustomerId = _CustomerId,
+                Products = products
+            });
+
+            await _context.SaveChangesAsync();
+            return Ok(orders);
+
         }
 
         // DELETE: api/Orders/5
@@ -74,8 +71,3 @@ namespace ProductManager.Controllers
     }
 }
 
-//for getting all заказы with id 
-//var restaurants = await _dbContext.Restaurants
-//                .AsNoTracking()
-//                .AsQueryable()
-//                .Include(m => m.Reservations).ToListAsync();

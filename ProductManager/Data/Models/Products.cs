@@ -20,8 +20,5 @@ namespace ProductManager.Data.Models
         public int? Amount { get; set; }
 
         public List<Orders> Orders { get; set; }
-
-
-
     }
 }

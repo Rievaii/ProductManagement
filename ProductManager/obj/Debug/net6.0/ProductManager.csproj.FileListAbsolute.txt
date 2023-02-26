@@ -616,3 +616,6 @@ C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\obj\Debug\net6.
 C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\obj\Debug\net6.0\ProductManager.pdb
 C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\obj\Debug\net6.0\ProductManager.genruntimeconfig.cache
 C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\obj\Debug\net6.0\ref\ProductManager.dll
+C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Admin\Documents\GitHub\ProductManagement\ProductManager\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

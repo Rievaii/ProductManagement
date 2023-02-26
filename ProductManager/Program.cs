@@ -4,6 +4,8 @@ using ProductManager.Data.Models;
 using ProductManager.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,10 +76,14 @@ using (var client = new Context())
 }
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+});
 builder.Services.AddDbContext<Context>(options => options.UseSqlite(@"Data Source=ProductsDB.db;Cache=Shared"));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+        
 
 var app = builder.Build();
 

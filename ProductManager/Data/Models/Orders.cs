@@ -9,15 +9,13 @@ namespace ProductManager.Data.Models
     {
 
         public int Id { get; set; }
-       
-        //get price and name from products
 
         [Required]
-        public long CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         [Required]
         public int Amount { get; set; }
-
-        public Products product { get; set; }
+       
+        public  Products Products { get; set; }
     }
 }
