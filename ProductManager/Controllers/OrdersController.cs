@@ -2,6 +2,8 @@
 using Microsoft.CodeAnalysis;
 using ProductManager.Data;
 using ProductManager.Data.Models;
+using System.Drawing.Printing;
+using System.IO;
 
 namespace ProductManager.Controllers
 {
@@ -21,9 +23,8 @@ namespace ProductManager.Controllers
         [HttpPost]
         public async Task<ActionResult<Orders>> PostOrders(int _Amount, int ProductId, int _CustomerId)
         {
-            //проверка на то, хватит ли продуктов в бд
             var products = await _context.Products.FindAsync(ProductId);
-            Console.WriteLine(products.Name);
+            
 
             if (products == null)
             {
@@ -36,15 +37,17 @@ namespace ProductManager.Controllers
 
             products.Amount -= _Amount;
 
-            var orders = _context.Orders.Add(new Orders
+            var order = _context.Orders.Add(new Orders
             {
                 Amount = _Amount,
                 CustomerId = _CustomerId,
-                Products = products
+                Products = products,
+                TotalSum = _Amount*products.Price
             });
 
+            //products.Orders = order;
             await _context.SaveChangesAsync();
-            return Ok(orders);
+            return Ok("Customer Id " + _CustomerId + " \n Total Amount =  " + _Amount*products.Price+"руб. \n");
 
         }
 
@@ -52,12 +55,13 @@ namespace ProductManager.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrders(int id)
         {
+            //return amount back
             var orders = await _context.Orders.FindAsync(id);
             if (orders == null)
             {
                 return NotFound();
             }
-
+            //orders.TotalSum;
             _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 

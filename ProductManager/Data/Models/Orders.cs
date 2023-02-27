@@ -1,7 +1,7 @@
 ﻿using MessagePack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
-
+using System.Text.Json.Serialization;
 
 namespace ProductManager.Data.Models
 {
@@ -15,7 +15,12 @@ namespace ProductManager.Data.Models
 
         [Required]
         public int Amount { get; set; }
-       
+
+
+        public decimal TotalSum { get; set; }
+
+
+        [JsonIgnore]
         public  Products Products { get; set; }
     }
 }
