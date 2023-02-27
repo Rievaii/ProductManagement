@@ -20,6 +20,7 @@ namespace ProductManager.Data.Models
         public decimal TotalSum { get; set; }
 
 
+
         [JsonIgnore]
         public  Products Products { get; set; }
     }

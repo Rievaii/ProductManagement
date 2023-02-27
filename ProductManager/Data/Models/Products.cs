@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 
@@ -21,6 +22,7 @@ namespace ProductManager.Data.Models
         [Required]
         public int? Amount { get; set; }
 
+            
         public List<Orders> Orders { get; set; }
     }
 }

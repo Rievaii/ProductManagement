@@ -36,16 +36,16 @@ namespace ProductManager.Controllers
             }
 
             products.Amount -= _Amount;
-
-            var order = _context.Orders.Add(new Orders
-            {
+            Orders orders = new Orders() {
                 Amount = _Amount,
                 CustomerId = _CustomerId,
                 Products = products,
-                TotalSum = _Amount*products.Price
-            });
+                TotalSum = _Amount * products.Price
+            };
+            var order = _context.Orders.Add(orders);
 
-            //products.Orders = order;
+            products.Orders.Add(orders);
+            
             await _context.SaveChangesAsync();
             return Ok("Customer Id " + _CustomerId + " \n Total Amount =  " + _Amount*products.Price+"руб. \n");
 
@@ -61,7 +61,7 @@ namespace ProductManager.Controllers
             {
                 return NotFound();
             }
-            //orders.TotalSum;
+            
             _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 
@@ -71,6 +71,19 @@ namespace ProductManager.Controllers
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Products>> GetOrders(int id)
+        {
+            var orders = await _context.Products.FindAsync(id);
+
+            if (orders == null)
+            {
+                return NotFound();
+            }
+
+            return orders;
         }
     }
 }

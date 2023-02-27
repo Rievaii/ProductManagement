@@ -24,8 +24,12 @@ namespace ProductManager.Controllers
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
-        {
-            return await _context.Products.ToListAsync();
+        {   var products = await _context.Products.ToListAsync();
+            foreach (var product in products)
+            {
+                product.Orders = await _context.Orders.Where(p => p.Products.Id == product.Id).ToListAsync();
+            }
+            return products;
         }
 
         // GET: api/Products/5
@@ -38,8 +42,10 @@ namespace ProductManager.Controllers
             {
                 return NotFound();
             }
-
+            products.Orders = await _context.Orders.Where(p => p.Products.Id == id).ToListAsync();
             return products;
+            
+            
         }
 
         // POST: api/Products
