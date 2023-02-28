@@ -16,10 +16,7 @@ namespace ProductManager.Data.Models
         [Required]
         public int Amount { get; set; }
 
-
         public decimal TotalSum { get; set; }
-
-
 
         [JsonIgnore]
         public  Products Products { get; set; }

@@ -17,6 +17,7 @@ using (var client = new Context())
         Amount = 20,
         
     };
+
     //DB Values Demonstration Example
     var product1 = new Products()
     {
@@ -24,8 +25,6 @@ using (var client = new Context())
         Price = 50,
         Description = "Мятные",
         Amount = 1000,
-
-        //Orders = new List<Orders>() { }
     };
 
     var product2 = new Products()
@@ -34,8 +33,6 @@ using (var client = new Context())
         Price = 69,
         Description = "Сладкие",
         Amount = 1000,
-
-        //Orders = new List<Orders>() {Order1}
     };
 
     var product3 = new Products()
@@ -43,8 +40,6 @@ using (var client = new Context())
         Name = "Шоколад",
         Price = 20,
         Amount = 1000,
-
-        //Orders = new List<Orders>() { }
     };
 
     var product4 = new Products()
@@ -53,8 +48,6 @@ using (var client = new Context())
         Price = 3,
         Description = "с начинкой",
         Amount = 2000,
-
-        //Orders = new List<Orders>() { },
     };
 
     var product5 = new Products()
@@ -62,8 +55,6 @@ using (var client = new Context())
         Name = "Хлеб",
         Price = 24,
         Amount = 500,
-
-        //Orders = new List<Orders>() { },
     };
 
     client.Products.Add(product1);

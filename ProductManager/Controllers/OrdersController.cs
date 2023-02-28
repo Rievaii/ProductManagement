@@ -67,6 +67,10 @@ namespace ProductManager.Controllers
 
 
             var products = await _context.Products.ToListAsync();
+            if (products == null)
+            {
+                return NotFound();
+            }
             foreach (var product in products)
             {
                 var AssignedOrder = product.Orders = await _context.Orders.Where(p => p.Id == id).ToListAsync();
@@ -75,17 +79,7 @@ namespace ProductManager.Controllers
                     product.Amount += order.Amount;  
                 }
             }
-                
             
-
-
-            if (products == null)
-            {
-                return NotFound();
-            }
-            
-
-
             _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 
