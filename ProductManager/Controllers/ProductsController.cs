@@ -24,7 +24,8 @@ namespace ProductManager.Controllers
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
-        {   var products = await _context.Products.ToListAsync();
+        {   
+            var products = await _context.Products.ToListAsync();
             foreach (var product in products)
             {
                 product.Orders = await _context.Orders.Where(p => p.Products.Id == product.Id).ToListAsync();
@@ -79,7 +80,7 @@ namespace ProductManager.Controllers
             return _context.Products.Any(e => e.Id == id);
         }
 
-        //order has number and total price 
+        
         
     }
 }

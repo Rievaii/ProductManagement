@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using ProductManager.Data;
 using ProductManager.Data.Models;
 using System.Drawing.Printing;
 using System.IO;
+using System.Linq;
 
 namespace ProductManager.Controllers
 {
@@ -36,15 +39,15 @@ namespace ProductManager.Controllers
             }
 
             products.Amount -= _Amount;
-            Orders orders = new Orders() {
+            Orders order = new Orders() {
                 Amount = _Amount,
                 CustomerId = _CustomerId,
                 Products = products,
                 TotalSum = _Amount * products.Price
             };
-            var order = _context.Orders.Add(orders);
+            var orders = _context.Orders.Add(order);
 
-            products.Orders.Add(orders);
+            products.Orders.Add(order);
             
             await _context.SaveChangesAsync();
             return Ok("Customer Id " + _CustomerId + " \n Total Amount =  " + _Amount*products.Price+"руб. \n");
@@ -55,13 +58,34 @@ namespace ProductManager.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrders(int id)
         {
-            //return amount back
+            
             var orders = await _context.Orders.FindAsync(id);
             if (orders == null)
             {
                 return NotFound();
             }
+
+
+            var products = await _context.Products.ToListAsync();
+            foreach (var product in products)
+            {
+                var AssignedOrder = product.Orders = await _context.Orders.Where(p => p.Id == id).ToListAsync();
+                foreach (var order in AssignedOrder)
+                {
+                    product.Amount += order.Amount;  
+                }
+            }
+                
             
+
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+            
+
+
             _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 
@@ -71,19 +95,6 @@ namespace ProductManager.Controllers
         private bool OrdersExists(int id)
         {
             return _context.Orders.Any(e => e.Id == id);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetOrders(int id)
-        {
-            var orders = await _context.Products.FindAsync(id);
-
-            if (orders == null)
-            {
-                return NotFound();
-            }
-
-            return orders;
         }
     }
 }
